@@ -1,0 +1,58 @@
+---
+title: "A Python Flipbook"
+subtitle: "With {flipbookr} and xaringan"
+author: "Gina Reynolds, March 2020"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+This is pretty experimental work.  The python "parser" (basically no parsing) means there are strong constraints on code.  Each new line must yield complete code statement...  
+
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, 
+                      comment = "", cache = T, fig.retina = 3, eval = F, dev = "jpg")
+library(flipbookr)
+library(tidyverse)
+library(reticulate)
+```
+
+
+---
+
+`r chunk_reveal("simple_plot", lang = "python", widths = c(40,59))`
+
+
+```{python simple_plot, include = F}
+import matplotlib.pyplot as plt
+year = [1950, 1970, 
+  1990, 2010]
+pop = [2.519, 3, 5, 6]
+plt.plot(year, pop)
+plt.show()
+```
+
+
+
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 100%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+```

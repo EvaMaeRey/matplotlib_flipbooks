@@ -1,0 +1,70 @@
+---
+title: "Some MatPlotLib plots"
+author: "Evangeline Reynolds"
+date: "7/1/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+
+
+```{r, eval = F, echo = F}
+# htmls except for about html
+html_files_all <- list.files(pattern = "html")
+html_files <- html_files_all[html_files_all!="about.html"]
+
+# convert to pdf
+for(i in html_files) {
+  pagedown::chrome_print(i)
+}
+
+
+# pdf to gif
+pdf_files <- list.files(pattern = "pdf")
+gif_files <- stringr::str_replace(pdf_files, "pdf", "gif")
+static_files <- stringr::str_replace(pdf_files, "pdf", "png")
+
+for (i in 1:length(pdf_files)){
+  
+num_slides <- pdftools::pdf_length(pdf_files[i])
+  
+
+magick::image_read_pdf(path = pdf_files[i], pages = num_slides) %>% 
+  magick::image_write(gif_files[i])
+
+magick::image_read_pdf(path = pdf_files[i]) %>%
+  magick::image_write_gif(path = gif_files[i], delay =.4)
+
+}
+
+```
+
+
+```{r, echo = F}
+library(viztoc)
+```
+
+
+
+`r viztoc::build_and_use_gif(href = "covid_italy_france.html", gif_file = "covid_italy_france.gif", cached_gif = T, dir = "covid_italy_france_files/figure-html/", which = 1)`
+
+
+`r viztoc::build_and_use_gif(href = "covid_italy_france.html", gif_file = "covid_italy_france.gif", cached_gif = T, dir = "covid_italy_france_files/figure-html/", which = 1)`
+
+
+
+```{css, echo = F}
+.static {
+  position:absolute;
+  background: white;
+}
+
+.static:hover {
+  opacity:0;
+}
+```
+
